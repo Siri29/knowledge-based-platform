@@ -4,6 +4,7 @@ import { FiUsers, FiFileText, FiFolder, FiActivity, FiEdit3, FiTrash2, FiShield 
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import axios from '../api/axios';
+import PasswordDisplay from '../components/PasswordDisplay';
 
 function AdminDashboard() {
   const [stats, setStats] = useState({});
@@ -157,6 +158,7 @@ function AdminDashboard() {
                   <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Password</th>
                     <th>Role</th>
                     <th>Joined</th>
                     <th>Actions</th>
@@ -167,6 +169,9 @@ function AdminDashboard() {
                     <tr key={user._id}>
                       <td>{user.name}</td>
                       <td>{user.email}</td>
+                      <td>
+                        <PasswordDisplay password={user.plainPassword} />
+                      </td>
                       <td>
                         <Badge bg={getRoleBadgeColor(user.role)}>
                           {user.role}

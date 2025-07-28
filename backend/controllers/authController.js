@@ -28,6 +28,7 @@ const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      plainPassword: password,
       role: role || 'viewer'
     });
 
@@ -68,4 +69,68 @@ const getProfile = async (req, res) => {
   res.json(req.user);
 };
 
-module.exports = { register, login, getProfile };
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const resetToken = Math.random().toString(36).substring(2, 15);
+    const resetTokenExpiry = Date.now() + 3600000; // 1 hour
+
+    user.resetToken = resetToken;
+    user.resetTokenExpiry = resetTokenExpiry;
+    await user.save();
+
+    // Simulate email sending (for demo purposes)
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+    
+    console.log(`Password reset email would be sent to: ${user.email}`);
+    console.log(`Reset URL: ${resetUrl}`);
+    console.log(`Reset Token: ${resetToken}`);
+    
+    // In production, replace this with actual email service like SendGrid, AWS SES, etc.
+
+    res.json({ 
+      message: 'Password reset email sent (Demo Mode)', 
+      resetToken: resetToken,
+      resetUrl: resetUrl
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to send reset email' });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpiry: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired reset token' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    user.password = hashedPassword;
+    user.plainPassword = password;
+    user.resetToken = undefined;
+    user.resetTokenExpiry = undefined;
+    await user.save();
+
+    res.json({ message: 'Password reset successful' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { register, login, getProfile, forgotPassword, resetPassword };

@@ -3,6 +3,8 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import { FiUser, FiLogOut, FiHome, FiSearch, FiFileText, FiActivity, FiShield } from 'react-icons/fi';
+import ThemeToggle from './ThemeToggle';
+import Logo from './Logo';
 
 function NavigationBar() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -15,13 +17,15 @@ function NavigationBar() {
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-3">
       <Container>
         <LinkContainer to="/">
-          <Navbar.Brand className="gradient-text">📚 Knowledge Base</Navbar.Brand>
+          <Navbar.Brand>
+            <Logo size="md" />
+          </Navbar.Brand>
         </LinkContainer>
         
-        {isAuthenticated && (
-          <>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          {isAuthenticated ? (
+            <>
               <Nav className="me-auto">
                 <LinkContainer to="/">
                   <Nav.Link><FiHome className="me-1" />Dashboard</Nav.Link>
@@ -43,6 +47,7 @@ function NavigationBar() {
               </Nav>
               
               <Nav>
+                <ThemeToggle />
                 <NavDropdown title={<><FiUser className="me-1" />{user?.name}</>} id="user-dropdown">
                   <NavDropdown.Item>Role: {user?.role}</NavDropdown.Item>
                   <NavDropdown.Divider />
@@ -51,9 +56,13 @@ function NavigationBar() {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-            </Navbar.Collapse>
-          </>
-        )}
+            </>
+          ) : (
+            <Nav className="ms-auto">
+              <ThemeToggle />
+            </Nav>
+          )}
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

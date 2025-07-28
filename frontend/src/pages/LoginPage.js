@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
+import Logo from '../components/Logo';
 import FormInput from '../components/FormInput';
 
 function LoginPage() {
@@ -50,7 +51,10 @@ function LoginPage() {
         <Col md={6} lg={4}>
           <Card>
             <Card.Body>
-              <h2 className="text-center mb-4">Login</h2>
+              <div className="text-center mb-4">
+                <Logo size="lg" />
+                <h2 className="mt-3">Login</h2>
+              </div>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <FormInput
@@ -80,6 +84,8 @@ function LoginPage() {
               </Form>
               <div className="text-center mt-3">
                 <Link to="/register">Don't have an account? Register</Link>
+                <br />
+                <Link to="/forgot-password" className="text-muted">Forgot Password?</Link>
               </div>
             </Card.Body>
           </Card>

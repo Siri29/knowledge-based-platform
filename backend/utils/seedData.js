@@ -17,25 +17,64 @@ const seedData = async () => {
     console.log('Cleared existing data...');
 
     // Create users
-    const hashedPassword = await bcrypt.hash('password123', 10);
+    const adminHashedPassword = await bcrypt.hash('admin123', 10);
+    const userHashedPassword = await bcrypt.hash('password123', 10);
     
     const users = await User.create([
       {
         name: 'Arjun Krishnan',
         email: 'admin@example.com',
-        password: hashedPassword,
+        password: adminHashedPassword,
+        plainPassword: 'admin123',
         role: 'admin'
       },
       {
         name: 'Priya Nair',
         email: 'editor@example.com',
-        password: hashedPassword,
+        password: userHashedPassword,
+        plainPassword: 'password123',
         role: 'editor'
       },
       {
         name: 'Ravi Sharma',
         email: 'viewer@example.com',
-        password: hashedPassword,
+        password: userHashedPassword,
+        plainPassword: 'password123',
+        role: 'viewer'
+      },
+      {
+        name: 'Lakshmi Menon',
+        email: 'lakshmi@example.com',
+        password: userHashedPassword,
+        plainPassword: 'password123',
+        role: 'editor'
+      },
+      {
+        name: 'Karthik Reddy',
+        email: 'karthik@example.com',
+        password: userHashedPassword,
+        plainPassword: 'password123',
+        role: 'editor'
+      },
+      {
+        name: 'Deepika Iyer',
+        email: 'deepika@example.com',
+        password: userHashedPassword,
+        plainPassword: 'password123',
+        role: 'viewer'
+      },
+      {
+        name: 'Suresh Kumar',
+        email: 'suresh@example.com',
+        password: userHashedPassword,
+        plainPassword: 'password123',
+        role: 'editor'
+      },
+      {
+        name: 'Ananya Pillai',
+        email: 'ananya@example.com',
+        password: userHashedPassword,
+        plainPassword: 'password123',
         role: 'viewer'
       }
     ]);
@@ -78,6 +117,62 @@ const seedData = async () => {
           { user: users[2]._id, role: 'viewer' }
         ],
         isPublic: true
+      },
+      {
+        name: 'Mobile App Project',
+        description: 'Private mobile application development docs',
+        key: 'MOBILE',
+        owner: users[3]._id,
+        members: [
+          { user: users[3]._id, role: 'admin' },
+          { user: users[4]._id, role: 'editor' }
+        ],
+        isPublic: false
+      },
+      {
+        name: 'Data Science Hub',
+        description: 'Machine learning and analytics documentation',
+        key: 'DATASCIENCE',
+        owner: users[4]._id,
+        members: [
+          { user: users[4]._id, role: 'admin' },
+          { user: users[6]._id, role: 'editor' },
+          { user: users[5]._id, role: 'viewer' }
+        ],
+        isPublic: true
+      },
+      {
+        name: 'DevOps Playbook',
+        description: 'Infrastructure and deployment guides',
+        key: 'DEVOPS',
+        owner: users[6]._id,
+        members: [
+          { user: users[6]._id, role: 'admin' },
+          { user: users[0]._id, role: 'editor' }
+        ],
+        isPublic: false
+      },
+      {
+        name: 'UI/UX Design System',
+        description: 'Design patterns and component library',
+        key: 'DESIGN',
+        owner: users[5]._id,
+        members: [
+          { user: users[5]._id, role: 'admin' },
+          { user: users[7]._id, role: 'viewer' }
+        ],
+        isPublic: true
+      },
+      {
+        name: 'Security Protocols',
+        description: 'Confidential security procedures and policies',
+        key: 'SECURITY',
+        owner: users[0]._id,
+        members: [
+          { user: users[0]._id, role: 'admin' },
+          { user: users[6]._id, role: 'editor' }
+        ],
+        isPublic: false
       }
     ]);
 
@@ -396,6 +491,299 @@ const seedData = async () => {
         author: users[1]._id,
         tags: ['api', 'documentation', 'template'],
         usageCount: 15
+      },
+      {
+        name: 'Bug Report Template',
+        description: 'Standard template for reporting bugs and issues',
+        content: `<h1>Bug Report - [Bug Title]</h1>
+        
+        <h2>Bug Summary</h2>
+        <p><strong>Description:</strong> [Brief description of the bug]</p>
+        <p><strong>Severity:</strong> [Critical/High/Medium/Low]</p>
+        <p><strong>Priority:</strong> [P1/P2/P3/P4]</p>
+        <p><strong>Reporter:</strong> [Your name]</p>
+        <p><strong>Date:</strong> [Date reported]</p>
+        
+        <h2>Environment</h2>
+        <ul>
+          <li><strong>OS:</strong> [Operating System]</li>
+          <li><strong>Browser:</strong> [Browser and version]</li>
+          <li><strong>App Version:</strong> [Version number]</li>
+          <li><strong>Device:</strong> [Desktop/Mobile/Tablet]</li>
+        </ul>
+        
+        <h2>Steps to Reproduce</h2>
+        <ol>
+          <li>[Step 1]</li>
+          <li>[Step 2]</li>
+          <li>[Step 3]</li>
+        </ol>
+        
+        <h2>Expected Behavior</h2>
+        <p>[What should happen]</p>
+        
+        <h2>Actual Behavior</h2>
+        <p>[What actually happens]</p>
+        
+        <h2>Screenshots/Videos</h2>
+        <p>[Attach relevant media]</p>
+        
+        <h2>Additional Information</h2>
+        <p>[Any other relevant details]</p>`,
+        category: 'process',
+        author: users[4]._id,
+        tags: ['bug', 'report', 'issue', 'template'],
+        usageCount: 23
+      },
+      {
+        name: 'Feature Request Template',
+        description: 'Template for requesting new features',
+        content: `<h1>Feature Request - [Feature Name]</h1>
+        
+        <h2>Feature Summary</h2>
+        <p><strong>Feature Title:</strong> [Clear, concise title]</p>
+        <p><strong>Requested By:</strong> [Your name/team]</p>
+        <p><strong>Date:</strong> [Date of request]</p>
+        <p><strong>Priority:</strong> [High/Medium/Low]</p>
+        
+        <h2>Problem Statement</h2>
+        <p>[What problem does this feature solve?]</p>
+        
+        <h2>Proposed Solution</h2>
+        <p>[Describe your proposed solution]</p>
+        
+        <h2>User Stories</h2>
+        <ul>
+          <li>As a [user type], I want [functionality] so that [benefit]</li>
+          <li>As a [user type], I want [functionality] so that [benefit]</li>
+        </ul>
+        
+        <h2>Acceptance Criteria</h2>
+        <ul>
+          <li>[ ] [Criteria 1]</li>
+          <li>[ ] [Criteria 2]</li>
+          <li>[ ] [Criteria 3]</li>
+        </ul>
+        
+        <h2>Mockups/Wireframes</h2>
+        <p>[Attach design mockups if available]</p>
+        
+        <h2>Technical Considerations</h2>
+        <ul>
+          <li>[Technical requirement 1]</li>
+          <li>[Technical requirement 2]</li>
+        </ul>
+        
+        <h2>Business Impact</h2>
+        <p>[How will this feature impact the business?]</p>`,
+        category: 'project',
+        author: users[3]._id,
+        tags: ['feature', 'request', 'enhancement', 'template'],
+        usageCount: 18
+      },
+      {
+        name: 'Release Notes Template',
+        description: 'Template for documenting software releases',
+        content: `<h1>Release Notes - Version [X.Y.Z]</h1>
+        
+        <h2>Release Information</h2>
+        <ul>
+          <li><strong>Version:</strong> [X.Y.Z]</li>
+          <li><strong>Release Date:</strong> [Date]</li>
+          <li><strong>Release Type:</strong> [Major/Minor/Patch]</li>
+          <li><strong>Release Manager:</strong> [Name]</li>
+        </ul>
+        
+        <h2>🚀 New Features</h2>
+        <ul>
+          <li>[Feature 1 description]</li>
+          <li>[Feature 2 description]</li>
+        </ul>
+        
+        <h2>✨ Improvements</h2>
+        <ul>
+          <li>[Improvement 1]</li>
+          <li>[Improvement 2]</li>
+        </ul>
+        
+        <h2>🐛 Bug Fixes</h2>
+        <ul>
+          <li>Fixed [bug description]</li>
+          <li>Resolved [issue description]</li>
+        </ul>
+        
+        <h2>⚠️ Breaking Changes</h2>
+        <ul>
+          <li>[Breaking change 1 - migration steps]</li>
+        </ul>
+        
+        <h2>📋 Known Issues</h2>
+        <ul>
+          <li>[Known issue 1 - workaround]</li>
+        </ul>
+        
+        <h2>🔧 Technical Details</h2>
+        <ul>
+          <li><strong>Dependencies Updated:</strong> [List updated dependencies]</li>
+          <li><strong>Database Changes:</strong> [Any schema changes]</li>
+          <li><strong>API Changes:</strong> [New/modified endpoints]</li>
+        </ul>
+        
+        <h2>📥 Download/Deployment</h2>
+        <p>[Instructions for downloading or deploying this version]</p>`,
+        category: 'documentation',
+        author: users[6]._id,
+        tags: ['release', 'notes', 'changelog', 'template'],
+        usageCount: 9
+      },
+      {
+        name: 'Onboarding Checklist Template',
+        description: 'Template for new employee onboarding',
+        content: `<h1>Employee Onboarding Checklist</h1>
+        
+        <h2>New Employee Information</h2>
+        <ul>
+          <li><strong>Name:</strong> [Employee Name]</li>
+          <li><strong>Position:</strong> [Job Title]</li>
+          <li><strong>Department:</strong> [Department]</li>
+          <li><strong>Start Date:</strong> [Date]</li>
+          <li><strong>Manager:</strong> [Manager Name]</li>
+          <li><strong>Buddy:</strong> [Assigned Buddy]</li>
+        </ul>
+        
+        <h2>Pre-First Day (HR)</h2>
+        <ul>
+          <li>[ ] Send welcome email with first day details</li>
+          <li>[ ] Prepare workspace and equipment</li>
+          <li>[ ] Create accounts (email, systems, tools)</li>
+          <li>[ ] Prepare welcome packet</li>
+          <li>[ ] Schedule first day meetings</li>
+        </ul>
+        
+        <h2>First Day</h2>
+        <ul>
+          <li>[ ] Welcome and office tour</li>
+          <li>[ ] Complete paperwork and documentation</li>
+          <li>[ ] IT setup (laptop, accounts, access)</li>
+          <li>[ ] Meet with manager and team</li>
+          <li>[ ] Review job description and expectations</li>
+          <li>[ ] Lunch with team/buddy</li>
+        </ul>
+        
+        <h2>First Week</h2>
+        <ul>
+          <li>[ ] Complete mandatory training</li>
+          <li>[ ] Review company policies and procedures</li>
+          <li>[ ] Set up development environment</li>
+          <li>[ ] Attend team meetings</li>
+          <li>[ ] Begin initial projects/tasks</li>
+          <li>[ ] Schedule regular 1:1s with manager</li>
+        </ul>
+        
+        <h2>First Month</h2>
+        <ul>
+          <li>[ ] Complete role-specific training</li>
+          <li>[ ] Meet with key stakeholders</li>
+          <li>[ ] First project milestone</li>
+          <li>[ ] 30-day check-in with HR</li>
+          <li>[ ] Feedback session with manager</li>
+        </ul>
+        
+        <h2>90-Day Review</h2>
+        <ul>
+          <li>[ ] Performance review</li>
+          <li>[ ] Goal setting for next quarter</li>
+          <li>[ ] Feedback collection</li>
+          <li>[ ] Career development discussion</li>
+        </ul>`,
+        category: 'process',
+        author: users[0]._id,
+        tags: ['onboarding', 'hr', 'checklist', 'template'],
+        usageCount: 7
+      },
+      {
+        name: 'Technical Design Document Template',
+        description: 'Template for technical design specifications',
+        content: `<h1>Technical Design Document - [System/Feature Name]</h1>
+        
+        <h2>Document Information</h2>
+        <ul>
+          <li><strong>Author:</strong> [Author Name]</li>
+          <li><strong>Date:</strong> [Date]</li>
+          <li><strong>Version:</strong> [Version]</li>
+          <li><strong>Status:</strong> [Draft/Review/Approved]</li>
+          <li><strong>Reviewers:</strong> [List of reviewers]</li>
+        </ul>
+        
+        <h2>Overview</h2>
+        <p>[High-level description of the system or feature]</p>
+        
+        <h2>Goals and Objectives</h2>
+        <ul>
+          <li>[Primary goal 1]</li>
+          <li>[Primary goal 2]</li>
+        </ul>
+        
+        <h2>Requirements</h2>
+        <h3>Functional Requirements</h3>
+        <ul>
+          <li>[Functional requirement 1]</li>
+          <li>[Functional requirement 2]</li>
+        </ul>
+        
+        <h3>Non-Functional Requirements</h3>
+        <ul>
+          <li><strong>Performance:</strong> [Performance requirements]</li>
+          <li><strong>Scalability:</strong> [Scalability requirements]</li>
+          <li><strong>Security:</strong> [Security requirements]</li>
+          <li><strong>Availability:</strong> [Availability requirements]</li>
+        </ul>
+        
+        <h2>System Architecture</h2>
+        <p>[High-level architecture description]</p>
+        <p>[Include architecture diagrams]</p>
+        
+        <h2>Detailed Design</h2>
+        <h3>Components</h3>
+        <ul>
+          <li><strong>[Component 1]:</strong> [Description and responsibilities]</li>
+          <li><strong>[Component 2]:</strong> [Description and responsibilities]</li>
+        </ul>
+        
+        <h3>Data Models</h3>
+        <p>[Database schema and data structures]</p>
+        
+        <h3>APIs</h3>
+        <p>[API specifications and endpoints]</p>
+        
+        <h2>Implementation Plan</h2>
+        <ul>
+          <li><strong>Phase 1:</strong> [Description and timeline]</li>
+          <li><strong>Phase 2:</strong> [Description and timeline]</li>
+        </ul>
+        
+        <h2>Testing Strategy</h2>
+        <ul>
+          <li><strong>Unit Testing:</strong> [Approach]</li>
+          <li><strong>Integration Testing:</strong> [Approach]</li>
+          <li><strong>Performance Testing:</strong> [Approach]</li>
+        </ul>
+        
+        <h2>Risks and Mitigation</h2>
+        <ul>
+          <li><strong>Risk:</strong> [Risk description] - <strong>Mitigation:</strong> [Mitigation strategy]</li>
+        </ul>
+        
+        <h2>Monitoring and Observability</h2>
+        <ul>
+          <li>[Monitoring requirements]</li>
+          <li>[Logging strategy]</li>
+          <li>[Alerting setup]</li>
+        </ul>`,
+        category: 'documentation',
+        author: users[6]._id,
+        tags: ['technical', 'design', 'architecture', 'template'],
+        usageCount: 11
       }
     ]);
 
@@ -428,9 +816,14 @@ const seedData = async () => {
     console.log('Created comments...');
     console.log('✅ Database seeded successfully!');
     console.log('\nLogin credentials:');
-    console.log('Admin (Arjun Krishnan): admin@example.com / password123');
+    console.log('Admin (Arjun Krishnan): admin@example.com / admin123');
     console.log('Editor (Priya Nair): editor@example.com / password123');
     console.log('Viewer (Ravi Sharma): viewer@example.com / password123');
+    console.log('Editor (Lakshmi Menon): lakshmi@example.com / password123');
+    console.log('Editor (Karthik Reddy): karthik@example.com / password123');
+    console.log('Viewer (Deepika Iyer): deepika@example.com / password123');
+    console.log('Editor (Suresh Kumar): suresh@example.com / password123');
+    console.log('Viewer (Ananya Pillai): ananya@example.com / password123');
 
   } catch (error) {
     console.error('Error seeding database:', error);

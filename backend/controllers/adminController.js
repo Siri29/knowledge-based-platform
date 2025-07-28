@@ -6,10 +6,14 @@ const Activity = require('../models/Activity');
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({})
-      .select('-password')
       .sort({ createdAt: -1 });
     
-    res.json(users);
+    // Return users with their actual plain passwords
+    const usersWithPasswords = users.map(user => ({
+      ...user.toObject()
+    }));
+    
+    res.json(usersWithPasswords);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

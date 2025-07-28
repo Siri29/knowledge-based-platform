@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
+import Logo from '../components/Logo';
 import FormInput from '../components/FormInput';
 
 function RegisterPage() {
@@ -59,7 +60,10 @@ function RegisterPage() {
         <Col md={6} lg={5}>
           <Card>
             <Card.Body>
-              <h2 className="text-center mb-4">Register</h2>
+              <div className="text-center mb-4">
+                <Logo size="lg" />
+                <h2 className="mt-3">Register</h2>
+              </div>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <FormInput
