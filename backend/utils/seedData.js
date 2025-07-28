@@ -814,6 +814,332 @@ const seedData = async () => {
     ]);
 
     console.log('Created comments...');
+
+    // Create activities
+    const Activity = require('../models/Activity');
+    await Activity.create([
+      {
+        user: users[0]._id,
+        action: 'created',
+        target: 'space',
+        targetId: spaces[0]._id,
+        targetTitle: spaces[0].name,
+        space: spaces[0]._id
+      },
+      {
+        user: users[1]._id,
+        action: 'created',
+        target: 'page',
+        targetId: pages[1]._id,
+        targetTitle: pages[1].title,
+        space: spaces[0]._id
+      },
+      {
+        user: users[2]._id,
+        action: 'viewed',
+        target: 'page',
+        targetId: pages[0]._id,
+        targetTitle: pages[0].title,
+        space: spaces[2]._id
+      },
+      {
+        user: users[3]._id,
+        action: 'updated',
+        target: 'page',
+        targetId: pages[2]._id,
+        targetTitle: pages[2].title,
+        space: spaces[1]._id
+      },
+      {
+        user: users[4]._id,
+        action: 'created',
+        target: 'space',
+        targetId: spaces[4]._id,
+        targetTitle: spaces[4].name,
+        space: spaces[4]._id
+      },
+      {
+        user: users[1]._id,
+        action: 'commented',
+        target: 'page',
+        targetId: pages[0]._id,
+        targetTitle: pages[0].title,
+        space: spaces[2]._id
+      },
+      {
+        user: users[6]._id,
+        action: 'created',
+        target: 'space',
+        targetId: spaces[5]._id,
+        targetTitle: spaces[5].name,
+        space: spaces[5]._id
+      },
+      {
+        user: users[5]._id,
+        action: 'updated',
+        target: 'page',
+        targetId: pages[4]._id,
+        targetTitle: pages[4].title,
+        space: spaces[2]._id
+      }
+    ]);
+
+    console.log('Created activities...');
+
+    // Create documents
+    const Document = require('../models/Document');
+    await Document.create([
+      {
+        title: 'Company Handbook 2024',
+        content: `<h1>Welcome to Our Company</h1>
+        <p>This handbook contains important information about our company policies, procedures, and culture.</p>
+        <h2>Our Mission</h2>
+        <p>To create innovative solutions that make a positive impact on the world.</p>
+        <h2>Core Values</h2>
+        <ul>
+          <li><strong>Innovation:</strong> We embrace creativity and new ideas</li>
+          <li><strong>Integrity:</strong> We act with honesty and transparency</li>
+          <li><strong>Collaboration:</strong> We work together to achieve common goals</li>
+          <li><strong>Excellence:</strong> We strive for the highest quality in everything we do</li>
+        </ul>
+        <h2>Work Environment</h2>
+        <p>We foster an inclusive and supportive work environment where everyone can thrive. Our office features:</p>
+        <ul>
+          <li>Open collaboration spaces</li>
+          <li>Quiet focus areas</li>
+          <li>Modern technology and tools</li>
+          <li>Wellness facilities</li>
+        </ul>
+        <p>For questions about this handbook, please contact <strong>@Arjun Krishnan</strong> or HR department.</p>`,
+        author: users[0]._id,
+        lastModifiedBy: users[0]._id,
+        isPublic: true,
+        mentions: [users[0]._id],
+        versions: [{
+          content: 'Initial company handbook version',
+          author: users[0]._id,
+          versionNumber: 1,
+          changes: 'Initial version'
+        }],
+        currentVersion: 1
+      },
+      {
+        title: 'API Integration Guide',
+        content: `<h1>API Integration Guide</h1>
+        <p>This document provides step-by-step instructions for integrating with our REST API.</p>
+        <h2>Getting Started</h2>
+        <p>Before you begin, make sure you have:</p>
+        <ul>
+          <li>Valid API credentials</li>
+          <li>Development environment set up</li>
+          <li>Basic understanding of REST APIs</li>
+        </ul>
+        <h2>Authentication</h2>
+        <p>All API requests require authentication using JWT tokens:</p>
+        <pre><code>Authorization: Bearer YOUR_JWT_TOKEN</code></pre>
+        <h2>Base URL</h2>
+        <p>All API endpoints are relative to: <code>https://api.example.com/v1</code></p>
+        <h2>Common Endpoints</h2>
+        <h3>Users</h3>
+        <ul>
+          <li><code>GET /users</code> - List all users</li>
+          <li><code>POST /users</code> - Create new user</li>
+          <li><code>PUT /users/:id</code> - Update user</li>
+        </ul>
+        <h3>Documents</h3>
+        <ul>
+          <li><code>GET /documents</code> - List documents</li>
+          <li><code>POST /documents</code> - Create document</li>
+          <li><code>PUT /documents/:id</code> - Update document</li>
+        </ul>
+        <p>For technical support, contact <strong>@Priya Nair</strong> or <strong>@Karthik Reddy</strong>.</p>`,
+        author: users[1]._id,
+        lastModifiedBy: users[1]._id,
+        isPublic: false,
+        mentions: [users[1]._id, users[4]._id],
+        sharedWith: [
+          { user: users[4]._id, permission: 'edit' },
+          { user: users[6]._id, permission: 'view' }
+        ],
+        versions: [{
+          content: 'Initial API guide version',
+          author: users[1]._id,
+          versionNumber: 1,
+          changes: 'Initial version'
+        }],
+        currentVersion: 1
+      },
+      {
+        title: 'Project Alpha - Requirements',
+        content: `<h1>Project Alpha - Requirements Document</h1>
+        <p><strong>Project Manager:</strong> <strong>@Lakshmi Menon</strong></p>
+        <p><strong>Last Updated:</strong> ${new Date().toLocaleDateString()}</p>
+        <h2>Project Overview</h2>
+        <p>Project Alpha is a new mobile application that will revolutionize how users interact with our platform.</p>
+        <h2>Functional Requirements</h2>
+        <ol>
+          <li><strong>User Authentication</strong>
+            <ul>
+              <li>Social login integration</li>
+              <li>Two-factor authentication</li>
+              <li>Password reset functionality</li>
+            </ul>
+          </li>
+          <li><strong>Core Features</strong>
+            <ul>
+              <li>Real-time messaging</li>
+              <li>File sharing capabilities</li>
+              <li>Push notifications</li>
+            </ul>
+          </li>
+          <li><strong>User Interface</strong>
+            <ul>
+              <li>Responsive design</li>
+              <li>Dark/light theme support</li>
+              <li>Accessibility compliance</li>
+            </ul>
+          </li>
+        </ol>
+        <h2>Technical Requirements</h2>
+        <ul>
+          <li><strong>Platform:</strong> iOS and Android</li>
+          <li><strong>Backend:</strong> Node.js with MongoDB</li>
+          <li><strong>Frontend:</strong> React Native</li>
+          <li><strong>Deployment:</strong> AWS infrastructure</li>
+        </ul>
+        <h2>Timeline</h2>
+        <ul>
+          <li><strong>Phase 1:</strong> Design and prototyping (4 weeks)</li>
+          <li><strong>Phase 2:</strong> Core development (8 weeks)</li>
+          <li><strong>Phase 3:</strong> Testing and deployment (3 weeks)</li>
+        </ul>
+        <p>Development team: <strong>@Karthik Reddy</strong>, <strong>@Suresh Kumar</strong>, <strong>@Deepika Iyer</strong></p>`,
+        author: users[3]._id,
+        lastModifiedBy: users[3]._id,
+        isPublic: false,
+        mentions: [users[3]._id, users[4]._id, users[6]._id, users[5]._id],
+        sharedWith: [
+          { user: users[4]._id, permission: 'edit' },
+          { user: users[6]._id, permission: 'edit' },
+          { user: users[5]._id, permission: 'view' }
+        ],
+        versions: [{
+          content: 'Initial requirements document',
+          author: users[3]._id,
+          versionNumber: 1,
+          changes: 'Initial version'
+        }],
+        currentVersion: 1
+      },
+      {
+        title: 'Security Best Practices',
+        content: `<h1>Security Best Practices</h1>
+        <p><strong>⚠️ CONFIDENTIAL DOCUMENT</strong></p>
+        <p>This document outlines essential security practices for all team members.</p>
+        <h2>Password Security</h2>
+        <ul>
+          <li>Use strong, unique passwords for all accounts</li>
+          <li>Enable two-factor authentication where available</li>
+          <li>Use a password manager</li>
+          <li>Never share passwords via email or chat</li>
+        </ul>
+        <h2>Code Security</h2>
+        <ul>
+          <li>Never commit sensitive data to version control</li>
+          <li>Use environment variables for configuration</li>
+          <li>Regularly update dependencies</li>
+          <li>Conduct security code reviews</li>
+        </ul>
+        <h2>Data Protection</h2>
+        <ul>
+          <li>Encrypt sensitive data at rest and in transit</li>
+          <li>Implement proper access controls</li>
+          <li>Regular security audits</li>
+          <li>Secure backup procedures</li>
+        </ul>
+        <h2>Incident Response</h2>
+        <p>In case of security incidents, immediately contact:</p>
+        <ul>
+          <li><strong>@Arjun Krishnan</strong> (Security Lead)</li>
+          <li><strong>@Suresh Kumar</strong> (DevOps)</li>
+          <li>IT Security team: security@company.com</li>
+        </ul>
+        <h2>Compliance</h2>
+        <p>All team members must complete annual security training and sign the security policy agreement.</p>`,
+        author: users[0]._id,
+        lastModifiedBy: users[0]._id,
+        isPublic: false,
+        mentions: [users[0]._id, users[6]._id],
+        sharedWith: [
+          { user: users[6]._id, permission: 'edit' }
+        ],
+        versions: [{
+          content: 'Initial security practices document',
+          author: users[0]._id,
+          versionNumber: 1,
+          changes: 'Initial version'
+        }],
+        currentVersion: 1
+      },
+      {
+        title: 'UI/UX Design Guidelines',
+        content: `<h1>UI/UX Design Guidelines</h1>
+        <p>Comprehensive design system and guidelines for consistent user experience.</p>
+        <h2>Design Principles</h2>
+        <ol>
+          <li><strong>Simplicity:</strong> Keep interfaces clean and intuitive</li>
+          <li><strong>Consistency:</strong> Use standardized components and patterns</li>
+          <li><strong>Accessibility:</strong> Design for all users and abilities</li>
+          <li><strong>Performance:</strong> Optimize for speed and efficiency</li>
+        </ol>
+        <h2>Color Palette</h2>
+        <h3>Primary Colors</h3>
+        <ul>
+          <li><strong>Brand Green:</strong> #059669</li>
+          <li><strong>Dark Green:</strong> #047857</li>
+          <li><strong>Light Green:</strong> #10b981</li>
+        </ul>
+        <h3>Secondary Colors</h3>
+        <ul>
+          <li><strong>Gray:</strong> #64748b</li>
+          <li><strong>Light Gray:</strong> #f8fafc</li>
+          <li><strong>Dark Gray:</strong> #1e293b</li>
+        </ul>
+        <h2>Typography</h2>
+        <ul>
+          <li><strong>Headings:</strong> Poppins (700 weight)</li>
+          <li><strong>Body Text:</strong> Inter (400 weight)</li>
+          <li><strong>Code:</strong> Monaco, monospace</li>
+        </ul>
+        <h2>Component Library</h2>
+        <h3>Buttons</h3>
+        <ul>
+          <li>Primary: Green background, white text</li>
+          <li>Secondary: Gray outline, dark text</li>
+          <li>Danger: Red background, white text</li>
+        </ul>
+        <h3>Forms</h3>
+        <ul>
+          <li>Input fields with rounded corners</li>
+          <li>Clear error states and validation</li>
+          <li>Consistent spacing and alignment</li>
+        </ul>
+        <p>For design reviews and feedback, contact <strong>@Ananya Pillai</strong> or the design team.</p>`,
+        author: users[7]._id,
+        lastModifiedBy: users[7]._id,
+        isPublic: true,
+        mentions: [users[7]._id],
+        versions: [{
+          content: 'Initial design guidelines',
+          author: users[7]._id,
+          versionNumber: 1,
+          changes: 'Initial version'
+        }],
+        currentVersion: 1
+      }
+    ]);
+
+    console.log('Created documents...');
     console.log('✅ Database seeded successfully!');
     console.log('\nLogin credentials:');
     console.log('Admin (Arjun Krishnan): admin@example.com / admin123');

@@ -137,9 +137,9 @@ function AdminDashboard() {
         <Col md={3}>
           <Card className="text-center">
             <Card.Body>
-              <FiActivity size={32} className="text-info mb-2" />
-              <h3>{activities.length}</h3>
-              <p className="text-muted mb-0">Recent Activities</p>
+              <FiFileText size={32} className="text-info mb-2" />
+              <h3>{stats.totalDocuments}</h3>
+              <p className="text-muted mb-0">Total Documents</p>
             </Card.Body>
           </Card>
         </Col>
@@ -210,11 +210,11 @@ function AdminDashboard() {
               <h5><FiActivity className="me-2" />Recent Activities</h5>
             </Card.Header>
             <Card.Body style={{ maxHeight: '400px', overflowY: 'auto' }}>
-              {activities.map(activity => (
+              {activities.filter(activity => activity.user).map(activity => (
                 <div key={activity._id} className="activity-item mb-2 p-2 border rounded">
                   <div className="d-flex justify-content-between align-items-start">
                     <div>
-                      <strong>{activity.user.name}</strong>
+                      <strong>{activity.user?.name || 'Unknown User'}</strong>
                       <span className="text-muted"> {activity.action} </span>
                       <span>{activity.targetTitle}</span>
                       {activity.space && (

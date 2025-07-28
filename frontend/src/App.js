@@ -21,6 +21,10 @@ import SearchPage from './pages/SearchPage';
 import TemplatesPage from './pages/TemplatesPage';
 import ActivityPage from './pages/ActivityPage';
 import AdminDashboard from './pages/AdminDashboard';
+import NewSpacePage from './pages/NewSpacePage';
+import NewTemplatePage from './pages/NewTemplatePage';
+import DocumentsPage from './pages/DocumentsPage';
+import DocumentEditorPage from './pages/DocumentEditorPage';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -71,6 +75,26 @@ function App() {
             <Route path="/admin" element={
               <ProtectedRoute>
                 <AdminDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/spaces/new" element={
+              <ProtectedRoute>
+                <NewSpacePage />
+              </ProtectedRoute>
+            } />
+            <Route path="/templates/new" element={
+              <ProtectedRoute>
+                <NewTemplatePage />
+              </ProtectedRoute>
+            } />
+            <Route path="/documents" element={
+              <ProtectedRoute>
+                <DocumentsPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/documents/:id" element={
+              <ProtectedRoute>
+                <DocumentEditorPage />
               </ProtectedRoute>
             } />
             <Route path="/spaces/:spaceId" element={

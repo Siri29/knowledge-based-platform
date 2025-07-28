@@ -82,9 +82,9 @@ function ActivityPage() {
             <div className="d-flex justify-content-between align-items-start">
               <div>
                 <p className="mb-1">
-                  <Link to={`/profile/${activity.user._id}`} className="fw-bold text-decoration-none">
-                    {activity.user.name}
-                  </Link>
+                  <span className="fw-bold">
+                    {activity.user?.name || 'Unknown User'}
+                  </span>
                   {' '}{actionConfig.text}{' '}
                   <TargetIcon size={16} className="mx-1" />
                   <Link to={getTargetLink(activity)} className="text-decoration-none">
@@ -93,9 +93,9 @@ function ActivityPage() {
                   {activity.space && (
                     <span className="text-muted">
                       {' '}in{' '}
-                      <Link to={`/spaces/${activity.space._id}`} className="text-decoration-none">
+                      <span className="text-decoration-none">
                         {activity.space.name}
-                      </Link>
+                      </span>
                     </span>
                   )}
                 </p>
@@ -207,7 +207,7 @@ function ActivityPage() {
                 </div>
               ) : (
                 <ListGroup variant="flush">
-                  {activities.map(renderActivityItem)}
+                  {activities.filter(activity => activity.user).map(renderActivityItem)}
                 </ListGroup>
               )}
             </Card.Body>

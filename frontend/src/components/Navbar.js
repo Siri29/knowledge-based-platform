@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useAuth } from '../context/AuthContext';
-import { FiUser, FiLogOut, FiHome, FiSearch, FiFileText, FiActivity, FiShield } from 'react-icons/fi';
+import { FiUser, FiLogOut, FiHome, FiSearch, FiFileText, FiActivity, FiShield, FiPlus, FiFolder } from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
 
@@ -32,6 +32,9 @@ function NavigationBar() {
                 </LinkContainer>
                 <LinkContainer to="/search">
                   <Nav.Link><FiSearch className="me-1" />Search</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/documents">
+                  <Nav.Link><FiFileText className="me-1" />Documents</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/templates">
                   <Nav.Link><FiFileText className="me-1" />Templates</Nav.Link>

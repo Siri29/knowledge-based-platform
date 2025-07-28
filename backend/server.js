@@ -23,6 +23,7 @@ app.use('/api/comments', require('./routes/comments'));
 app.use('/api/templates', require('./routes/templates'));
 app.use('/api/activities', require('./routes/activities'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/documents', require('./routes/documents'));
 
 app.get('/', (req, res) => {
   res.send('Knowledge Base API is running...');

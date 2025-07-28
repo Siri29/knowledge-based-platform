@@ -2,18 +2,14 @@ const User = require('../models/User');
 const Page = require('../models/Page');
 const Space = require('../models/Space');
 const Activity = require('../models/Activity');
+const Document = require('../models/Document');
 
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({})
       .sort({ createdAt: -1 });
     
-    // Return users with their actual plain passwords
-    const usersWithPasswords = users.map(user => ({
-      ...user.toObject()
-    }));
-    
-    res.json(usersWithPasswords);
+    res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -24,6 +20,7 @@ const getUserStats = async (req, res) => {
     const totalUsers = await User.countDocuments();
     const totalPages = await Page.countDocuments();
     const totalSpaces = await Space.countDocuments();
+    const totalDocuments = await Document.countDocuments();
     
     const usersByRole = await User.aggregate([
       { $group: { _id: '$role', count: { $sum: 1 } } }
@@ -38,6 +35,7 @@ const getUserStats = async (req, res) => {
       totalUsers,
       totalPages,
       totalSpaces,
+      totalDocuments,
       usersByRole,
       recentUsers
     });
