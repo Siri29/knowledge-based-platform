@@ -248,12 +248,6 @@ This project is licensed under the MIT License.
 - File upload not implemented (planned feature)
 - Real-time notifications need WebSocket implementation
 
-## 📞 Support
-
-For support and questions:
-- Create an issue on GitHub
-- Email: support@yourcompany.com
-
 ## 🔄 Version History
 
 - **v1.0.0** - Initial release with core features
