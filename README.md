@@ -2,9 +2,9 @@
 
 A comprehensive knowledge management and document collaboration platform built with React.js and Node.js.
 
-[![Watch Demo]
+[Watch Demo]
 (https://drive.google.com/file/d/1EBHUVzZwRPT3N6p_UnkUzsjheYQTnEgT/view?usp=sharing)
-> Click the image to watch a walkthrough video hosted on Google Drive.
+> Click the link to watch a walkthrough video hosted on Google Drive.
 
 
 ## 🚀 Features
