@@ -14,6 +14,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ['admin', 'editor', 'viewer'],
+    default: 'viewer'
+  },
+  avatar: String,
   resetToken: String,
   resetTokenExpiry: Date,
 }, { timestamps: true });
