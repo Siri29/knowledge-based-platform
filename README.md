@@ -1,251 +1,265 @@
 # Knowledge Base Platform
 
-A full-stack knowledge management platform built with the MERN stack, similar to Confluence. This platform allows teams to collaboratively create, edit, organize, and search rich-text documents in a hierarchical structure.
+A comprehensive knowledge management and document collaboration platform built with React.js and Node.js.
 
 ## 🚀 Features
 
-### Core Features
-- **User Authentication & Authorization**: JWT-based auth with role-based permissions (Admin, Editor, Viewer)
-- **Document Management**: Create, edit, delete rich-text pages with version control
-- **Hierarchical Organization**: Pages organized under spaces with sub-page support
-- **Full-Text Search**: Search across page titles, content, and tags
-- **Collaboration**: Commenting system for team collaboration
-- **Rich Text Editor**: WYSIWYG editor with ReactQuill
-- **Responsive UI**: Bootstrap-based responsive design
+### 🔐 User Authentication System
+- User registration with email validation
+- Login with email/password
+- Forgot password functionality with email reset
+- JWT-based authentication for API security
+- Role-based access control (Admin, Editor, Viewer)
 
-### User Roles
-- **Admin**: Full access to all features, can manage spaces and users
-- **Editor**: Can create and edit pages, manage own content
-- **Viewer**: Read-only access to public content and assigned spaces
+### 📄 Document Management
+- **Document Listing**: Display all accessible documents with metadata (title, author, last modified, visibility status)
+- **Document Creation**: Rich WYSIWYG editor for creating formatted documents
+- **Document Editing**: In-place editing with auto-save functionality (2-second delay)
+- **Search Functionality**: Global search across document titles and content
+- **Version Control**: Track all document changes with timestamps and history
+
+### 👥 User Collaboration
+- **User Mentions**: @username functionality that triggers notifications
+- **Auto-sharing**: When a user is mentioned, they automatically get read access to the document
+- **Real-time collaboration**: Multiple users can work on documents simultaneously
+
+### 🔒 Privacy Controls
+- **Public Documents**: Accessible to anyone with the link (no login required)
+- **Private Documents**: Only accessible to the author and explicitly shared users
+- **Sharing Management**: Add/remove user access with different permission levels (view/edit)
+
+### 🏢 Workspace Management
+- **Spaces**: Organize content into dedicated workspaces
+- **Templates**: Reusable document templates for consistency
+- **Activity Feed**: Track all platform activities and changes
+- **Admin Dashboard**: User management and platform statistics
+
+### 🎨 Modern UI/UX
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Dark/Light Theme**: Toggle between themes
+- **Professional Logo**: Custom branding with animations
+- **Bootstrap Integration**: Clean, modern interface
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **Node.js** + **Express.js** - Server framework
-- **MongoDB** + **Mongoose** - Database and ODM
-- **JWT** + **bcryptjs** - Authentication and password hashing
-- **Socket.io** - Real-time features
-- **Express Validator** - Input validation
-- **Multer** - File upload handling
-
 ### Frontend
-- **React.js** - Frontend framework
-- **React Router** - Client-side routing
-- **Bootstrap** + **React Bootstrap** - UI components
-- **ReactQuill** - Rich text editor
+- **React.js 18** - Modern UI framework
+- **React Router 6** - Client-side routing
+- **React Bootstrap** - UI components
 - **Axios** - HTTP client
-- **React Toastify** - Notifications
 - **React Icons** - Icon library
+- **React Toastify** - Notifications
+
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **MongoDB** - Database
+- **Mongoose** - ODM
+- **JWT** - Authentication
+- **bcryptjs** - Password hashing
+- **Nodemailer** - Email functionality
+
+## 📦 Installation
+
+### Prerequisites
+- Node.js (v16 or higher)
+- MongoDB (local or cloud)
+- Git
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/yourusername/knowledge-based-platform.git
+cd knowledge-based-platform
+```
+
+### 2. Backend Setup
+```bash
+cd backend
+npm install
+```
+
+Create `.env` file:
+```env
+NODE_ENV=development
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/knowledge-base
+JWT_SECRET=your-super-secret-jwt-key-here
+CLIENT_URL=http://localhost:3000
+
+# Email configuration
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+```
+
+### 3. Frontend Setup
+```bash
+cd ../frontend
+npm install
+```
+
+### 4. Database Setup
+```bash
+cd ../backend
+npm run seed
+```
+
+This creates sample users, documents, and content.
+
+## 🚀 Running the Application
+
+### Development Mode
+```bash
+# Terminal 1 - Backend
+cd backend
+npm run dev
+
+# Terminal 2 - Frontend
+cd frontend
+npm start
+```
+
+### Production Build
+```bash
+cd frontend
+npm run build
+```
+
+## 👥 Default Users
+
+After running the seed command, you can login with:
+
+- **Admin**: admin@example.com / admin123
+- **Editor**: editor@example.com / password123
+- **Viewer**: viewer@example.com / password123
+- **Editor**: lakshmi@example.com / password123
+- **Editor**: karthik@example.com / password123
+- **Viewer**: deepika@example.com / password123
+- **Editor**: suresh@example.com / password123
+- **Viewer**: ananya@example.com / password123
 
 ## 📁 Project Structure
 
 ```
 knowledge-based-platform/
 ├── backend/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── spaceController.js
-│   │   ├── pageController.js
-│   │   └── commentController.js
-│   ├── middleware/
-│   │   └── auth.js
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Space.js
-│   │   ├── Page.js
-│   │   ├── PageVersion.js
-│   │   └── Comment.js
-│   ├── routes/
-│   │   ├── auth.js
-│   │   ├── spaces.js
-│   │   ├── pages.js
-│   │   └── comments.js
-│   ├── .env
-│   ├── package.json
-│   └── server.js
+│   ├── controllers/         # Route controllers
+│   ├── middleware/          # Custom middleware
+│   ├── models/             # Database models
+│   ├── routes/             # API routes
+│   ├── utils/              # Utility functions
+│   ├── scripts/            # Database scripts
+│   └── server.js           # Entry point
 ├── frontend/
-│   ├── public/
+│   ├── public/             # Static files
 │   ├── src/
-│   │   ├── api/
-│   │   │   └── axios.js
-│   │   ├── components/
-│   │   │   ├── FormInput.js
-│   │   │   └── Navbar.js
-│   │   ├── context/
-│   │   │   └── AuthContext.js
-│   │   ├── pages/
-│   │   │   ├── Dashboard.js
-│   │   │   ├── LoginPage.js
-│   │   │   ├── RegisterPage.js
-│   │   │   ├── SpacePage.js
-│   │   │   ├── PageEditor.js
-│   │   │   └── PageView.js
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── App.js
-│   │   └── index.js
+│   │   ├── components/     # Reusable components
+│   │   ├── context/        # React contexts
+│   │   ├── pages/          # Page components
+│   │   ├── styles/         # CSS files
+│   │   └── api/            # API configuration
 │   └── package.json
 └── README.md
 ```
 
-## 🚀 Getting Started
+## 🔧 API Endpoints
 
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB (local or cloud instance)
-- npm or yarn
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd knowledge-based-platform
-   ```
-
-2. **Backend Setup**
-   ```bash
-   cd backend
-   npm install
-   ```
-
-3. **Configure Environment Variables**
-   Create a `.env` file in the backend directory:
-   ```env
-   NODE_ENV=development
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/knowledge-base
-   JWT_SECRET=your-super-secret-jwt-key-here
-   CLIENT_URL=http://localhost:3000
-   
-   # Email configuration (optional)
-   EMAIL_HOST=smtp.gmail.com
-   EMAIL_PORT=587
-   EMAIL_USER=your-email@gmail.com
-   EMAIL_PASS=your-app-password
-   ```
-
-4. **Frontend Setup**
-   ```bash
-   cd ../frontend
-   npm install
-   ```
-
-### Running the Application
-
-1. **Start MongoDB** (if running locally)
-   ```bash
-   mongod
-   ```
-
-2. **Start Backend Server**
-   ```bash
-   cd backend
-   npm run dev
-   ```
-   Server will run on http://localhost:5000
-
-3. **Start Frontend Development Server**
-   ```bash
-   cd frontend
-   npm start
-   ```
-   Application will open at http://localhost:3000
-
-## 📖 API Documentation
-
-### Authentication Endpoints
-- `POST /api/auth/register` - Register new user
+### Authentication
+- `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
-- `GET /api/auth/profile` - Get user profile
+- `POST /api/auth/forgot-password` - Password reset
+- `POST /api/auth/reset-password` - Reset password
 
-### Spaces Endpoints
-- `GET /api/spaces` - Get all accessible spaces
-- `POST /api/spaces` - Create new space (Admin/Editor)
-- `GET /api/spaces/:id` - Get space details
-- `PUT /api/spaces/:id` - Update space (Owner only)
-- `DELETE /api/spaces/:id` - Delete space (Owner only)
+### Documents
+- `GET /api/documents` - Get all accessible documents
+- `GET /api/documents/:id` - Get specific document
+- `POST /api/documents` - Create new document
+- `PUT /api/documents/:id` - Update document
+- `POST /api/documents/:id/share` - Share document
+- `GET /api/documents/search` - Search documents
+- `GET /api/documents/public/:id` - Get public document
 
-### Pages Endpoints
-- `GET /api/pages` - Get pages with filters
-- `POST /api/pages` - Create new page (Admin/Editor)
-- `GET /api/pages/:id` - Get page details
-- `PUT /api/pages/:id` - Update page (Admin/Editor)
-- `DELETE /api/pages/:id` - Delete page (Admin/Editor)
-- `GET /api/pages/search` - Search pages
-- `GET /api/pages/:id/versions` - Get page version history
+### Spaces
+- `GET /api/spaces` - Get all spaces
+- `POST /api/spaces` - Create new space
+- `GET /api/spaces/:id` - Get specific space
+- `PUT /api/spaces/:id` - Update space
 
-### Comments Endpoints
-- `GET /api/comments/page/:pageId` - Get page comments
-- `POST /api/comments` - Create comment
-- `PUT /api/comments/:id` - Update comment (Author only)
-- `DELETE /api/comments/:id` - Delete comment (Author/Admin)
+### Templates
+- `GET /api/templates` - Get all templates
+- `POST /api/templates` - Create new template
+- `GET /api/templates/:id` - Get specific template
 
-## 🔐 Security Features
+### Admin (Admin only)
+- `GET /api/admin/stats` - Platform statistics
+- `GET /api/admin/users` - All users
+- `PUT /api/admin/users/:id/role` - Update user role
+- `DELETE /api/admin/users/:id` - Delete user
 
-- JWT-based authentication
-- Role-based access control
-- Input validation and sanitization
-- Password hashing with bcrypt
-- CORS configuration
-- Protected routes and middleware
+## 🎯 Key Features Explained
 
-## 🎨 UI Features
+### Document Collaboration
+- **WYSIWYG Editor**: Rich text editing with formatting tools
+- **Auto-save**: Changes saved automatically every 2 seconds
+- **Version History**: Complete change tracking with timestamps
+- **User Mentions**: @username triggers notifications and auto-sharing
+- **Permission Levels**: View-only or edit access control
 
-- Responsive design with Bootstrap
-- Rich text editor with formatting options
-- Real-time notifications
-- Breadcrumb navigation
-- Search functionality
-- Comment system
-- Version history display
+### Privacy & Security
+- **JWT Authentication**: Secure token-based authentication
+- **Role-based Access**: Admin, Editor, Viewer permissions
+- **Document Privacy**: Public/private visibility controls
+- **Secure Sharing**: Email-based user sharing system
+
+### Admin Features
+- **User Management**: View, edit, delete users
+- **Platform Statistics**: Users, documents, spaces, activities
+- **Activity Monitoring**: Real-time platform activity feed
+- **Password Display**: View user passwords for support
 
 ## 🚀 Deployment
 
-### Using Docker (Recommended)
+### Frontend (Netlify)
+1. Build the project: `npm run build`
+2. Deploy `build` folder to Netlify
+3. Set environment variables for API URL
 
-1. **Create Dockerfile for Backend**
-2. **Create Dockerfile for Frontend**
-3. **Create docker-compose.yml**
-4. **Deploy to cloud platform**
-
-### Manual Deployment
-
-1. **Backend**: Deploy to services like Heroku, AWS EC2, or DigitalOcean
-2. **Frontend**: Deploy to Vercel, Netlify, or AWS S3
-3. **Database**: Use MongoDB Atlas for cloud database
-
-## 🔮 Future Enhancements
-
-- [ ] Real-time collaborative editing
-- [ ] Page templates
-- [ ] File attachments and image uploads
-- [ ] Export to PDF functionality
-- [ ] Dark mode theme
-- [ ] Advanced search filters
-- [ ] Activity audit trail
-- [ ] Email notifications
-- [ ] Mobile app
-- [ ] Integration with external tools
+### Backend (Heroku/Railway)
+1. Deploy backend to cloud platform
+2. Set environment variables
+3. Update CORS settings for frontend domain
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -m 'Add feature'`
+4. Push to branch: `git push origin feature-name`
+5. Submit pull request
 
-## 📄 License
+## 📝 License
 
 This project is licensed under the MIT License.
 
-## 👥 Team
+## 🐛 Known Issues
 
-Built with ❤️ by the development team.
+- Email functionality requires SMTP configuration
+- File upload not implemented (planned feature)
+- Real-time notifications need WebSocket implementation
+
+## 📞 Support
+
+For support and questions:
+- Create an issue on GitHub
+- Email: support@yourcompany.com
+
+## 🔄 Version History
+
+- **v1.0.0** - Initial release with core features
+- **v1.1.0** - Added document collaboration
+- **v1.2.0** - Enhanced UI/UX and admin features
 
 ---
 
-For questions or support, please open an issue in the repository.
+Built with ❤️ using React.js and Node.js
